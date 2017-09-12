@@ -133,6 +133,26 @@ GitHub上有个很好的关于机器学习和深度学习的合集([Qix/dl.md at
 
 
 
+### 4
+
+我也谈谈自己的经验。
+
+机器学习说简单就简单，说难就难，但如果一个人不够聪明的话，他大概很难知道机器学习哪里难。基本上要学习机器学习，先修课程是algebra, calculus, probability theory, linear regression。这几门科学好了再学Machine learning是事半功倍的。此外近代数学的东西也要懂， functional analysis啥的。其实不懂也行，只是现在文献总是喜欢引用里面的概念，懂一些读起来方便。（我就很讨厌manifold learning这个名字，把许多人都吓跑了）real analysis最好用心学，对序列或函数的收敛性的理解很能帮助你了解这些模型的精髓。Optimization theory (ref. Convex optimization by Boyd)也是重中之重，在前面几门课学好并有一定python基础的时候可以仔细读一读。
+
+其实机器学习需要看的书不多，必读的是elements of statistical learning。这本书涵盖范围很广，且深入浅出，习题也有一定难度，适合自学。你看过这本之后就知道其他什么书可以看什么书不需要看了。
+
+再下来就是练习，这个是重中之重。我觉得做kaggle的比赛最有效。可以仿照别人写写code，也可以自己想想办法，但最主要的是要能够迅速完成编程并给出结果。我见过许多人光讨论就可以几天，但真正动起手来就萎了。
+
+最后就是读source code并自己实现几个model from scratch。这个比较难，但是确是最锻炼人的。具体语言应该是越基础越好，比如C/C++什么的。等你自己写完了一两个model，再去用别人的package就会觉得得心应手许多了。我真心觉得这个比上coursera那些课强多了。上coursera最大的缺点就是容易变得似懂非懂纸上谈兵。我自己program过ensemble trees(C++)和deep learning solver(Python)，受益颇多。至于读source code，我觉得libsvm写得很好啊，不过算法对大一大二新生是难了点。此外，基于python的工具包scikit-learn的sourcecode很好读，建议大家多看看。
+
+我看回答中有提到Matlab，我觉的matlab处理字符很麻烦，现在很多dataset都需要处理字符，所以并不是好的选择。
+
+补充一点就是要学会发散思维，学会如何从data中找feature。关于这个的教程很缺，需要大量练习及一些天赋。
+
+说实话machine learning虽然门槛不高，但真心是聪明人的游戏。
+
+
+
 ## [补矩阵知识](https://www.zhihu.com/question/25866010)
 
 首先我觉得你应该好好过一遍MIT的Linear Algebra的课。这个课有两个版本，我是跟这个更适合自学的版本。因为这个版本所有章节都模块化了，跟起来不会让人觉得压力很大。[Linear Algebra**](https://link.zhihu.com/?target=https%3A//ocw.mit.edu/courses/mathematics/18-06sc-linear-algebra-fall-2011/index.htm)

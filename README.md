@@ -1,3 +1,11 @@
+## 几个资料总结的网站
+
+[机器学习经典书籍](http://www.cnblogs.com/mldllearningforbai/p/5351584.html)
+
+[机器学习经典论文/survey合集](http://suanfazu.com/t/ji-qi-xue-xi-jing-dian-lun-wen-slash-surveyhe-ji/14)
+
+
+
 ## To Learn
 
 ## 近200篇机器学习&深度学习资料分享（含各种文档，视频，源码等）
