@@ -25,13 +25,39 @@ trainSet = allSet(index(1:trainLen),:);
 validSet = allSet(index(trainLen+1:trainLen+validLen),:);
 testSet = allSet(index(trainLen+validLen+1:end),:);
 
-x = trainSet(:,2:end-1);
+x = trainSet(:,1:end-1);
 y = trainSet(:,end);
-x = zscore(x);
 
-%disp(x(1:5,1:end));
+vx = validSet(:,1:end-1);
+vy = validSet(:,end);
+%x = zscore(x);
 
-c = sprintf('reteyft %f\n',0.1)
+% mse = 10^7;
+% for log2c = -10:0.5:3
+%     for log2g = -10:0.5:3
+%         % -v 交叉验证参数：在训练的时候需要，测试的时候不需要，否则出错
+%         cmd = ['-v 3 -c ', num2str(2^log2c), ' -g ', num2str(2^log2g) , ' -s 3 -p 0.4 -t 3'];
+%         cv = svmtrain(y,x,cmd);
+%         if (cv < mse)
+%             mse = cv; bestc = 2^log2c; bestg = 2^log2g;
+%         end
+%     end
+% end
 
-model = svmtrain(y,x,'-s 3 -t 2 -c 0.1 -g 1 -p 0.01');
-[py,mse,d] = svmpredict(y,x,model);
+
+model = svmtrain(y,x,'-s 3 -t 2 -c 512 -g 0.031 -p 10');
+[py,acc,d] = svmpredict(vy,vx,model);
+disp("----")
+disp(acc(3)) %accuracy, mean squared error, correlation coefficient
+
+
+
+
+
+
+
+
+
+
+
+
