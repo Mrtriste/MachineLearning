@@ -27,12 +27,17 @@
 % end  
 % fclose(fid); 
 
-fid=fopen('norm1.csv','w');  
-[b1 b2]=size(res);  
-for i=1:b1    
-    for j=1:b2  
-       fprintf(fid,'%f,',res(i,j));  
-    end  
-    fprintf(fid,'\n');  
-end  
-fclose(fid); 
+% fid=fopen('norm1.csv','w');  
+% [b1 b2]=size(res);  
+% for i=1:b1    
+%     for j=1:b2  
+%        fprintf(fid,'%f,',res(i,j));  
+%     end  
+%     fprintf(fid,'\n');  
+% end  
+% fclose(fid); 
+
+
+
+
+
