@@ -1,4 +1,4 @@
-### Classification:
+## Classification:
 
 Logistic Regression 
 
@@ -12,7 +12,7 @@ Quadratic Discriminant Analysis
 
 
 
-### Regression:
+## Regression:
 
 Linear Regression
 
@@ -38,7 +38,7 @@ Robust Regression
 
 
 
-### Classification & Regression:
+## Classification & Regression:
 
 SVM
 
@@ -56,7 +56,7 @@ Neural Network(supervised)
 
 
 
-### Ensemble methods:
+## Ensemble methods:
 
 Bagging
 
@@ -74,7 +74,7 @@ XgBoost
 
 
 
-### Unsupervised Learning:
+## Unsupervised Learning:
 
 Gaussian mixture models
 
@@ -84,7 +84,7 @@ Neural network models (unsupervised)
 
 
 
-### Clustering:
+## Clustering:
 
 K-means
 
@@ -98,7 +98,7 @@ Hierarchical clustering
 
 
 
-### Dimensionality reduction:
+## Dimensionality reduction:
 
 PCA
 
@@ -106,7 +106,7 @@ Feature Selection
 
 
 
-### Preprocessing data
+## Preprocessing data
 
 Standardization, mean removal, variance scaling
 
@@ -122,7 +122,7 @@ Generating polynomial features
 
 
 
-### Others:
+## Others:
 
 Cross decomposition
 
