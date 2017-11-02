@@ -102,7 +102,7 @@ def exp2():
 	plt.show()
 
 if __name__ == '__main__':
-	# exp1()
-	exp2()
+	exp1()
+	# exp2()
 	
 	
