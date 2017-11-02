@@ -19,17 +19,17 @@ def sigmoid(inX):
 
 def fit(X,t):
 	n_samples = X.shape[0]; n_features = X.shape[1]
-	X = np.mat(X);t = t.reshape((t.shape[0],1))
-	w = np.mat(np.zeros((n_features,1)))
+	w = np.zeros(n_features)
 	iter_num = 50; alpha = 0.05
 	for i in range(iter_num):
-		y = np.mat(sigmoid(X*w))
-		w -= X.T*(y-t)
+		y = sigmoid(np.dot(X,w))
+		w -= np.dot(X.T,y-t)
 	return w
 
 if __name__ == '__main__':
 	X,y = get_data()
 	X = preprocessing.scale(X)
+	X = np.column_stack([[1]*X.shape[0],X])
 	color = np.array(['r']*y.shape[0])
 	color[y==1] = 'g'
 	plt.figure(1,figsize=(8,6))
@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
 	def line(y0):
 		# w0+w1*x+w2*y=0  =>  x = (-w0-w2*y)/w1
-		return (-w[0,0]-w[2,0]*y0)/w[1,0]
+		return (-w[0]-w[2]*y0)/w[1]
 	
 	plt.plot([line(y_min),line(y_max)],[y_min,y_max])
 
