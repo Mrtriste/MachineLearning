@@ -1,0 +1,2 @@
+classification:logistic, hinge(SVM), modified_least_square, modified_huber, quadratically_smoothed_SVM  _dloss是对p即w*x求偏导
+regression:least_square, huber_loss, 
