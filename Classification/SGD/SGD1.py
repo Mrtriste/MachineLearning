@@ -67,7 +67,6 @@ class SGD:
 			self.w = preprocessing.normalize(self.w, norm='l2')[0]
 		else:
 			self.w = self._fit_multi(X,y)
-			print self.w
 			self.w = preprocessing.normalize(self.w, norm='l2')
 
 	def predict(self,X):
@@ -76,7 +75,7 @@ class SGD:
 			y = (pred>0).astype(int)
 			return self.class_set[y]
 		else:
-			scores = np.dot(X,self.w)
+			scores = np.dot(X,self.w.T)
 			y = scores.argmax(axis = 1)
 			return self.class_set[y]
 
@@ -145,9 +144,18 @@ def test_multi():
 
 def test_image():
 	X,y = get_image_data()
+	X = np.column_stack([[1]*X.shape[0],X])
+	X_train,X_test,y_train,y_test = \
+				train_test_split(X,y,test_size=0.2,random_state = np.random.RandomState(42))
+	clf = SGD(eta0=0.1,alpha = 0.01)
+	clf.fit(X_train,y_train)
+	y_pred = clf.predict(X_test)
+	correct_rate = 1-np.mean(y_test!=y_pred)
+	print 'correct_rate:',correct_rate
 
 
 if __name__ == '__main__':
 	# test_binary()
 	test_multi()
+	# test_image()
 	plt.show()
