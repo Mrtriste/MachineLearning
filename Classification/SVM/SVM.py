@@ -8,8 +8,8 @@ class SVM:
 		self.param =  Q.SVM_Param(kernel_type,degree,gamma,coef0,epsilon,C)
 
 	def fit(self,X,y):
-		solver = Solver(self.param)
-		model = solver.solve(X,y)
+		solver = Solver(self.param,X,y)
+		model = solver.solve()
 
 	def predict(self,X):
 		pass
