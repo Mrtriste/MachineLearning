@@ -19,6 +19,8 @@ class Kernel:
 		self.X = X
 		self.y = y
 		self.param = param
+		if param.gamma is 'auto':
+			self.param.gamma = 1.0/self.X.shape[1]
 		self.kernels = {
 			'Linear':self.LinearKernel,
 			'Poly':self.PolyKernel,
@@ -38,6 +40,9 @@ class Kernel:
 
 	def RBFKernel(self,i,j):
 		return np.exp(-self.param.gamma*np.dot(self.X[i]-self.X[j],self.X[i]-self.X[j]))
+
+	def k_function(self,xi,x):
+		pass
 
 class Q(Kernel):
 	def get_Kii(self,i):

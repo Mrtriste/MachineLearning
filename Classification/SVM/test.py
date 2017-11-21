@@ -11,9 +11,10 @@ from SVM import SVM
 
 def get_binary_data():
 	centers = [[-5,3],[1,3]]
-	X,y = make_blobs(centers = centers,n_samples = 1000,random_state=42)
+	n = 20
+	X,y = make_blobs(centers = centers,n_samples = n,random_state=42)
 	trans = [[0.4,0.2],[-0.4,1.2]]
-	X = np.dot(X,trans) + np.random.rand(1000,2)*2.5
+	X = np.dot(X,trans) + np.random.rand(n,2)*2.5
 	return X,y
 
 def get_multi_data():
@@ -26,8 +27,6 @@ def get_multi_data():
 def get_image_data():
 	digits = datasets.load_digits()
 	return digits.data,digits.target
-
-
 
 
 ############### plot
@@ -63,17 +62,20 @@ def plot_line(X,w):
 ############### test main
 def test_binary():
 	X,y = get_binary_data()
-	X = np.column_stack([[1]*X.shape[0],X])
+	# X = np.column_stack([[1]*X.shape[0],X])
 	X_train,X_test,y_train,y_test = \
 				train_test_split(X,y,test_size=0.2,random_state = np.random.RandomState(42))
+	plot_samples(X_train,y_train)
+	plt.show()
 	clf = SVM()
 	clf.fit(X_train,y_train)
-	y_pred = clf.predict(X_test)
-	correct_rate = 1-np.mean(y_test!=y_pred)
-	print 'correct_rate:',correct_rate
 
-	plot_samples(X,y)
-	plot_line(X[:,1:],clf.w)
+	# y_pred = clf.predict(X_test)
+	# correct_rate = 1-np.mean(y_test!=y_pred)
+	# print 'correct_rate:',correct_rate
+
+	plot_samples(X_train,y_train)
+	plot_line(X_train,[clf.b,clf.w[0],clf.w[1]])
 
 def test_multi():
 	X,y = get_multi_data()
@@ -104,7 +106,7 @@ def test_image():
 
 
 if __name__ == '__main__':
-	# test_binary()
-	test_multi()
+	test_binary()
+	# test_multi()
 	# test_image()
 	plt.show()
