@@ -31,7 +31,7 @@ class Solver:
 		# I_up: calculate m and select i
 		for i in range(n):
 			if y[i] == 1:
-				if alpha[i] < self.Cp:
+				if alpha[i] < self.getC(i):
 					if -G[i] >= m:
 						m = -G[i]; select_i = i # calculate m and select i
 			else:
@@ -58,7 +58,7 @@ class Solver:
 							res = -b_it*b_it/aij
 						else:
 							res = -b_it*b_it/self.TAU
-						if res < select_j_min:
+						if res <= select_j_min:
 							select_j_min = res; select_j = t
 			else:
 				if alpha[t] < self.Cn:
@@ -73,9 +73,11 @@ class Solver:
 							res = -b_it*b_it/aij
 						else:
 							res = -b_it*b_it/self.TAU
-						if res < select_j_min:
+						if res <= select_j_min:
 							select_j_min = res; select_j = t
+		print m- M
 		if m -M < self.param.epsilon or select_j == -1:
+			print select_i, select_j
 			return (-1,-1)
 		else:
 			return (select_i,select_j)
@@ -108,6 +110,7 @@ class Solver:
 						neg_m = res
 
 		if cnt > 0:
+			print '*********'
 			return sum_/cnt
 		return (neg_m+neg_M)/2.0
 			
@@ -140,13 +143,13 @@ class Solver:
 			# --------------- yi!=yj
 			if y[i]!=y[j]:
 				aij = Q_.get_Kii(i) + Q_.get_Kii(j) + 2*Qi[j] # Q[i,j] = - K[i,j]
-				if aij < 0:
+				if aij <= 0:
 					aij = self.TAU
 				delta = (-G[i]-G[j])/aij
 				diff = alpha[i] - alpha[j]
 				alpha[i] += delta;alpha[j] += delta
 
-				if delta > 0:
+				if diff > 0:
 					if alpha[j] < 0:
 						alpha[j] = 0; alpha[i] = diff
 				else:
@@ -180,12 +183,14 @@ class Solver:
 					if alpha[j] > Cj:
 						alpha[j] = Cj; alpha[i] = add - Cj
 
+			# print alpha
 			# update Gradient
 			Q_NB = np.column_stack([Q_.getQ(i),Q_.getQ(j)])
 			alpha_B = np.array([alpha[i]-old_alpha_j, alpha[j]-old_alpha_j])
 			# print Q_NB.shape,alpha_B.shape,G.shape
 			G += np.dot(Q_NB,alpha_B)
 
+		# print alpha
 		rho = self.cal_rho(alpha,G)
 
 		return SVM_Model(alpha,rho)
