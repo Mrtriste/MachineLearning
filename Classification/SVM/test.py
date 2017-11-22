@@ -10,8 +10,9 @@ import random
 from SVM import SVM
 
 def get_binary_data():
-	centers = [[-5,3],[1,3]]
-	n = 20
+	# centers = [[-5,3],[1,3]]
+	centers = [[8,3],[1,3]]
+	n = 1000
 	X,y = make_blobs(centers = centers,n_samples = n,random_state=42)
 	trans = [[0.4,0.2],[-0.4,1.2]]
 	X = np.dot(X,trans) + np.random.rand(n,2)*2.5
@@ -30,7 +31,7 @@ def get_image_data():
 
 
 ############### plot
-def plot_samples(X,y):
+def plot_samples(X,y,alpha=None,cc = None):
 	x_start = 0
 	if np.mean(X[:,0])==1:
 		x_start += 1
@@ -41,6 +42,11 @@ def plot_samples(X,y):
 		color[y==y_set[i]] = c_lst[i]
 	plt.figure(figsize=(8,6))
 	plt.scatter(X[:,x_start],X[:,x_start+1],c = color)
+	if alpha is not None:
+		idx = (alpha>0)
+		XX = X[idx,:]
+		print 'num:',np.sum(idx.astype(int))
+		plt.scatter(XX[:,x_start],XX[:,x_start+1],c = 'b')
 
 def plot_line(X,w):
 	x_min = X[:,0].min();x_max = X[:,0].max()
@@ -65,17 +71,23 @@ def test_binary():
 	# X = np.column_stack([[1]*X.shape[0],X])
 	X_train,X_test,y_train,y_test = \
 				train_test_split(X,y,test_size=0.2,random_state = np.random.RandomState(42))
+	y_train[y_train==0] = -1
 	plot_samples(X_train,y_train)
 	plt.show()
-	clf = SVM()
-	clf.fit(X_train,y_train)
 
-	# y_pred = clf.predict(X_test)
-	# correct_rate = 1-np.mean(y_test!=y_pred)
-	# print 'correct_rate:',correct_rate
+	C = [0.0001]#,0.0003,0.001,0.003,0.01,0.03,0.1,0.3]
+	for c in C:
+		clf = SVM(C = c)
+		clf.fit(X_train,y_train)
 
-	plot_samples(X_train,y_train)
-	plot_line(X_train,[clf.b,clf.w[0],clf.w[1]])
+		# y_pred = clf.predict(X_test)
+		# correct_rate = 1-np.mean(y_test!=y_pred)
+		# print 'correct_rate:',correct_rate
+
+		print clf.b,clf.w
+
+		plot_samples(X_train,y_train,clf.alpha,c)
+		plot_line(X_train,[clf.b,clf.w[0],clf.w[1]])
 
 def test_multi():
 	X,y = get_multi_data()
