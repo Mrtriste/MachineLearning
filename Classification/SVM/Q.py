@@ -31,6 +31,7 @@ class Kernel:
 		self.K = np.zeros(n)
 		for i in range(n):
 			self.K[i] = self.kernel_function(i,i)
+		# print self.K
 
 	def LinearKernel(self,i,j):
 		return np.dot(self.X[i],self.X[j])
