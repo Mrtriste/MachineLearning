@@ -17,7 +17,8 @@ class Solver:
 		self.y = y
 
 	def setC(self):
-		self.Cn = self.Cp = self.param.C
+		self.Cn = self.param.C
+		self.Cp = self.param.C
 
 	def getC(self,i):
 		return self.Cn if self.y[i]<0 else self.Cp
@@ -75,7 +76,7 @@ class Solver:
 							res = -b_it*b_it/self.TAU
 						if res <= select_j_min:
 							select_j_min = res; select_j = t
-		print m- M
+		# print m- M
 		if m -M < self.param.epsilon or select_j == -1:
 			print select_i, select_j
 			return (-1,-1)
@@ -88,11 +89,16 @@ class Solver:
 		y = self.y
 		neg_M = -INF; neg_m = INF
 		sum_ = 0; cnt = 0
+		sum_1 = 0; cnt1 = 0
 		for i in range(n):
 			res = y[i]*G[i]
 			if alpha[i]>0 and alpha[i]<self.getC(i):
 				cnt += 1
 				sum_ += res
+
+			if alpha[i]>0:
+				cnt1+=1
+				sum_1 += res
 
 			if y[i] == 1:
 				if alpha[i] == self.getC(i):
@@ -108,7 +114,7 @@ class Solver:
 				if alpha[i] == self.getC(i):
 					if neg_m > res:
 						neg_m = res
-
+		print 'rho:',(sum_1/cnt1),' ',(neg_m+neg_M)/2.0,' ',neg_M,' ',neg_m
 		if cnt > 0:
 			print '*********'
 			return sum_/cnt
@@ -186,7 +192,7 @@ class Solver:
 			# print alpha
 			# update Gradient
 			Q_NB = np.column_stack([Q_.getQ(i),Q_.getQ(j)])
-			alpha_B = np.array([alpha[i]-old_alpha_j, alpha[j]-old_alpha_j])
+			alpha_B = np.array([alpha[i]-old_alpha_i, alpha[j]-old_alpha_j])
 			# print Q_NB.shape,alpha_B.shape,G.shape
 			G += np.dot(Q_NB,alpha_B)
 
