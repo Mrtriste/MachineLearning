@@ -70,9 +70,44 @@
 
   Here, XGBoost uses Softmax to calculate loss function as follows.
 
-  We have n data samples, with each sample having m feathers, $$()$$
+  Every time, XGBoost will make a prediction $$preds[n][i]=z_i$$ about each class for every sample, says $$x$$.
+
+  Then we use cross-entropy as the loss function, that's 
+  $$
+  loss = -\sum_j y_jln\ p_j\\
+  p_j=\sigma(z_j)\\
+  \sigma(z_j)=\frac{e^{z_j}}{\sum_k{e^{z_k}}}
+  $$
+  $$y_i$$ is 0 or 1, represents if it equals the sample's label.
+
+  1. The first order:
+
+     - if label == i: (i is one of the class)
+       $$
+       \frac{\partial loss}{\partial z_i}=\sigma(z_i)-1
+       $$
+
+     - if label != i:
+       $$
+       \frac{\partial loss}{\partial z_i}=\sigma(z_i)
+       $$
+
+  2. The second order:
+     $$
+     \frac{\partial ^2loss}{\partial z_i ^2}=\frac{\partial z_i\  \sigma(z_i)}{\partial z_i}=\sigma(z_i)[1-\sigma(z_i)]
+     $$
+     The code is that:
+
+     ```c++
+     bst_float p = rec[k];
+     const bst_float h = 2.0f * p * (1.0f - p) * wt;
+     ```
+
+     It is not exactly second-order derivative, but an diagonal upper bound of the hessian matrix of softmax, which also ensures convergence. For simplicity, you can view this as an approximation.
 
 - Regression 
+
+  ​
 
 
 
