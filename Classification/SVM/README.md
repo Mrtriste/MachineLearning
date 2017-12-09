@@ -62,9 +62,9 @@ Here I just realize a simple SVM which only supports binary classification, name
   $$
   Now the time of getting dual problem:
 
-  First, we min this Lagrange Function, make a derivation about parameters $$w,\alpha,\mu_i$$, and set them=0.
+  First, we min this Lagrange Function, make a derivation about parameters $$w,b,\xi_i$$, and set them=0.
 
-  Second, substitute the results of equations into the Lagrange Function, and max it.
+  Second, substitute the results of equations into the Lagrange Function to eliminate $$w,C,\mu_i,\xi_i,b$$, only reserve $$\alpha_i$$, and then max it.
 
   We will get the dual problem:
   $$
