@@ -34,8 +34,11 @@ class Node:
 	def get_split_v(self):
 		return self.split_v
 
+	def get_score(self):
+		return self.weight
+
 	def is_leaf(self):
-		return self.left==-1
+		return self.left == -1
 
 	def is_old_leaf(self):
 		return self.right==-2
@@ -51,13 +54,22 @@ class Tree:
 		return self.nodes[index]
 
 	def get_score(self,data):
-		pass
+		node = self.nodes[0]
+		while(not node.is_leaf()):
+			fid = node.get_split_fid()
+			v = node.get_split_v()
+			if data[fid]<v:
+				node = self.nodes[node.get_left()]
+			else:
+				node = self.nodes[node.get_right()]
+		return node.get_score()
 
 	def add_child(self,weight):
 		node = Node()
 		node.set_weight(weight)
 		self.nodes.append(node)
-		return self.node_num++
+		self.node_num += 1
+		return self.node_num-1
 
 	def size(self):
 		return len(self.nodes)
