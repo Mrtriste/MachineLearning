@@ -11,13 +11,14 @@ class Booster:
 
 	def train(self,info):
 		n_class = info['n_class']
-		grad = info['grad']
-		hess = info['hess']
+		g = info['grad']
+		h = info['hess']
 		lamda = info['lamda']
+		min_weight = info['min_weight']
 		self.Trees = []
 		# every loop geranerates a tree
 		for i in range(n_class):
-			updater = Updater(X,self.order,g[:,i],h[:,i],lamda)
+			updater = Updater(self.X,self.order,g[:,i],h[:,i],lamda,min_weight)
 			updater.generate()
 			self.Trees.append(updater.get_tree())
 
