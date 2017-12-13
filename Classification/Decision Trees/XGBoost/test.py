@@ -8,10 +8,11 @@ from sklearn import preprocessing
 from XGBoost import *
 
 def get_multi_data():
+	n = 10000
 	centers = [[-5,3],[1,3],[-3,-3]]
-	X,y = make_blobs(centers = centers,n_samples = 1000,random_state=42)
+	X,y = make_blobs(centers = centers,n_samples = n,random_state=42)
 	trans = [[0.4,0.2],[-0.4,1.2]]
-	X = np.dot(X,trans) + np.random.rand(1000,2)*2.5
+	X = np.dot(X,trans) + np.random.rand(n,2)*2.5
 	return X,y
 
 def get_image_data():
@@ -22,24 +23,35 @@ def test_multi():
 	X,y = get_multi_data()
 	X_train,X_test,y_train,y_test = \
 				train_test_split(X,y,test_size=0.2,random_state = np.random.RandomState(42))
-	clf = XGBoost()
-	clf.fit(X_train[0:20,:],y_train[0:20])
-	# y_pred = clf.predict(X_test)
-	# correct_rate = 1-np.mean(y_test!=y_pred)
-	# print 'correct_rate:',correct_rate
+	lamda = [0.01,0.03,0.1,0.3,1,3]
+	# min_w = [0.1,0.3,1,2,3]
+	# lamda = [3]
+	# min_w = [0.1]
+	for l in lamda:
+		# for m in min_w:
+		clf = XGBoost(l,1,6)
+		# X_train = X_train[0:50,:];y_train = y_train[0:50]
+		# X_train = np.array([[1],[2],[3],[4],[5],[11],[12],[13],[14],[15]])
+		# y_train = np.array([0,0,0,0,0,1,1,1,1,1])
+		clf.fit(X_train,y_train)
+		y_pred = clf.predict(X_test)
+		# print y_pred
+		# print y_test
+		correct_rate = 1-np.mean(y_test!=y_pred)
+		print 'correct_rate:',correct_rate,'para:',l,m
 
-def test(X):
-	X=100
+def test_image():
+	X,y = get_image_data()
+	# X = np.column_stack([[1]*X.shape[0],X])
+	X_train,X_test,y_train,y_test = \
+				train_test_split(X,y,test_size=0.2,random_state = np.random.RandomState(42))
+	clf = XGBoost(0.1,1)
+	clf.fit(X_train,y_train)
+	y_pred = clf.predict(X_test)
+	correct_rate = 1-np.mean(y_test!=y_pred)
+	print 'correct_rate:',correct_rate
+
 
 if __name__=='__main__':
-	# test_multi()
-	# a = np.array([[2,3],[4,8],[1,7]],dtype=float)
-	# b = np.array([1,10,100])
-	# c=1
-	# test(c)
-	# print c
-	# print np.sum(np.exp(a),axis=1)
-	# print softmax(a)
-	a = np.array([[5,2,3,8,6],[7,9,2,5,6]])
-	print  np.argsort(a,axis=1)
-	print max(1,2)
+	test_multi()
+	# test_image()
