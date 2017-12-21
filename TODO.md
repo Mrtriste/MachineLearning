@@ -1,3 +1,9 @@
+机器学习 最优化 深度学习  搜索/推荐/广告 
+
+竞赛
+
+
+
 ## TODO
 
 线性回归， 普通的决策树， RF， GBDT， Bayes，LDA，KNN，K-means，EM，LSTM
@@ -67,7 +73,7 @@ https://www.lagou.com/jobs/3865945.html
 3. 机器学习模型一定要很清楚原理，必须会推公式
 4. 一般说起 gbdt ，我们都会跟 rf 以及 xgboost 一块讲
 5. 几种模型（ svm ， lr ， gbdt ， em ）的原理以及公式推导；
-6.  rf ， gbdt 的区别； gbdt ， xgboost 的区别（烂大街的问题最好从底层原理去分析回答）；
+6. rf ， gbdt 的区别； gbdt ， xgboost 的区别（烂大街的问题最好从底层原理去分析回答）；
 7. 决策树处理连续值的方法；
 8. 特征选择的方法；
 9. 过拟合的解决方法；
