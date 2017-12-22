@@ -10,7 +10,7 @@ def softmax(X):
 	return (X_exp/X_sum).T
 
 class GBDT:
-	def __init__(self,max_iter=10,max_depth=6,eps=1.0):
+	def __init__(self,max_iter=10,max_depth=6,eps=0.1):
 		self.max_iter = max_iter
 		self.max_depth = max_depth
 		self.eps = eps
@@ -33,8 +33,8 @@ class GBDT:
 			self.get_grad(p)
 			trees = []
 			for j in range(n_class):
-				# print g[:,j]
-				tree = updater.fit(X,g[:,j])
+				# negative grad
+				tree = updater.fit(X,-g[:,j])
 				trees.append(tree)
 			Trees.append(trees)
 			self.predict_raw(X,p)
@@ -54,7 +54,7 @@ class GBDT:
 				sum_v = 0
 				for it in range(it_num):
 					tree = Trees[it][k]
-					sum_v += tree.get_score(X[i,:])
+					sum_v += 1/(it+1.0)*tree.get_score(X[i,:])
 				p[i,k] = sum_v
 
 	def get_grad(self,p):
