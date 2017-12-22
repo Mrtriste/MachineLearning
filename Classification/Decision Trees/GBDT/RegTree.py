@@ -7,6 +7,8 @@ class Node:
 		self.value = 0
 		self.split_f = -1
 		self.split_v = -1
+		self.loss = 1e12
+		self.num = 1
 
 	def set_left(self,l):
 		self.left = l 
@@ -47,6 +49,12 @@ class Node:
 
 	def is_old(self):
 		return self.right == -2
+
+	def set_loss(self,l):
+		self.loss = l 
+
+	def get_loss(self):
+		return self.loss
 
 
 class RegTree:
