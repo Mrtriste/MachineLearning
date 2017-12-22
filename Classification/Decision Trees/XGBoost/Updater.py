@@ -3,6 +3,14 @@
 import numpy as np 
 from Tree import *
 
+class Entry:
+	def __init__(self):
+		self.split_v = -1
+		self.split_f = -1
+		self.max_gain = 0
+		self.l_weight = 0
+		self.r_weight = 0
+
 class Updater:
 	def __init__(self,X,order,g,h,lamda,min_weight):
 		self.hold = np.ones(X.shape[0])
@@ -39,44 +47,51 @@ class Updater:
 				sum_g[nid] += self.g[i]
 				sum_h[nid] += self.h[i]
 
-		# calculate gain
-		for nid in self.expand:
-			X = self.X; g =self.g; h = self.h
-			max_gain = 0; split_v = -1; split_f = -1
-			l_weight=0; r_weight = 0
-			for fid in self.feat_index:
-				first_id = self.order[0,fid]
-				last = X[first_id,fid]
-				G_L = g[first_id]; G_R = sum_g[nid]-g[first_id]
-				H_L = h[first_id]; H_R = sum_h[nid]-h[first_id]
-				for rid in self.order[1:,fid]:
-					if self.hold[rid] == 1 and last != X[rid,fid]:
-						new_gain = 0
-						if H_L >= self.min_weight and H_R >=self.min_weight:
-							gain_L = G_L*G_L/(H_L+self.lamda)
-							gain_R = G_R*G_R/(H_R+self.lamda)
-							new_gain = gain_L+gain_R
+		X = self.X; g =self.g; h = self.h
 
-						if max_gain < new_gain:
-							max_gain = new_gain
-							split_f = fid
-							split_v = (last+X[rid,fid])*0.5
-							l_weight = -G_L/(H_L+self.lamda)
-							r_weight = -G_R/(H_R+self.lamda)
-						last = X[rid,fid]
-						G_L += g[rid]; H_L += h[rid]
-						G_R -= g[rid]; H_R -= h[rid]
-			lst.append((max_gain,split_f,split_v,l_weight,r_weight))
-		# print sum_h,sum_g
+		entries = []
+		for i in range(self.tree.size()):
+			entries.append(Entry())
+
+		# calculate gain
+		for fid in range(X.shape[1]):
+			last = []; G_L = []; G_R = []; H_L = []; H_R = []
+			for i in range(self.tree.size()):
+				last.append(None)
+				G_L.append(0); G_R.append(sum_g[i])
+				H_L.append(0); H_R.append(sum_h[i])
+			for rid in self.order[:,fid]:
+				nid = position[rid]
+				if last[nid] == None:
+					last[nid] = X[rid,fid]
+					G_L[nid] = g[rid]; G_R[nid] -= g[rid]
+					H_L[nid] = h[rid]; H_R[nid] -= g[rid]
+				elif last[nid] != X[rid,fid]:
+					new_gain = 0
+					if H_L[nid] >= self.min_weight and H_R[nid] >=self.min_weight:
+						gain_L = G_L[nid]*G_L[nid]/(H_L[nid]+self.lamda)
+						gain_R = G_R[nid]*G_R[nid]/(H_R[nid]+self.lamda)
+						new_gain = gain_L+gain_R
+
+					if entries[nid].max_gain < new_gain:
+						entries[nid].max_gain = new_gain
+						entries[nid].split_f = fid 
+						entries[nid].split_v = (last[nid]+X[rid,fid])*0.5
+						entries[nid].l_weight = -G_L[nid]/(H_L[nid]+self.lamda)
+						entries[nid].r_weight = -G_R[nid]/(H_R[nid]+self.lamda)
+					last[nid] = X[rid,fid]
+					G_L[nid] += g[rid]; H_L[nid] += h[rid]
+					G_R[nid] -= g[rid]; H_R[nid] -= h[rid]
+
 		# split
-		for i,nid in enumerate(self.expand):
+		for nid in self.expand:
 			gain = (sum_g[nid]*sum_g[nid])/(sum_h[nid]+self.lamda)
 			# print lst[i][0],gain,'score:',lst[i][3]
-			if gain < lst[i][0]:
+			if gain < entries[nid].max_gain:
 				# print 'split:',lst[i][1],lst[i][2]
-				self.tree[nid].set_split(lst[i][1],lst[i][2])
-				self.tree[nid].set_left(self.tree.add_child(lst[i][3]))
-				self.tree[nid].set_right(self.tree.add_child(lst[i][4]))
+				self.tree[nid].set_split(entries[nid].split_f,entries[nid].split_v)
+				self.tree[nid].set_left(self.tree.add_child(entries[nid].l_weight))
+				self.tree[nid].set_right(self.tree.add_child(entries[nid].r_weight))
 				# print 'child:',nid,self.tree[nid].get_left(),self.tree[nid].get_right()
 
 	def reset_position(self):
