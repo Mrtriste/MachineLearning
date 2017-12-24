@@ -6,9 +6,9 @@
 
 ## TODO
 
-线性回归， 普通的决策树， RF， GBDT， Bayes，LDA，KNN，K-means，EM，LSTM
+普通的决策树， RF，  Bayes，LDA，KNN，K-means，EM，
 
-CNN，RNN，DNN
+CNN，RNN，DNN，LSTM
 
 最优化，CS221，CS229，
 
@@ -16,7 +16,7 @@ CNN，RNN，DNN
 
 ## DONE
 
-LR，SVM，XGBoost，Perception，SGD
+LR，SVM，XGBoost，Perception，SGD，GBDT，LinearReg，Ridge，Lasso，
 
 
 
@@ -33,6 +33,12 @@ LR，SVM，XGBoost，Perception，SGD
 [理想的工作](http://www.jianshu.com/p/874afd1d4491)
 
 https://www.lagou.com/jobs/3865945.html
+
+[深度学习推荐](https://mp.weixin.qq.com/s/Q8Mt9B1rzbeWXqIInrzSYQ)
+
+[LSTM](http://mp.weixin.qq.com/s/ORLpqqV8pOv-pIagi8yS1A)
+
+[概率图](http://mp.weixin.qq.com/s/S-6Mb6zNzVPpxR8DbWdT-A) 
 
 
 
@@ -74,7 +80,7 @@ https://www.lagou.com/jobs/3865945.html
 4. 一般说起 gbdt ，我们都会跟 rf 以及 xgboost 一块讲
 5. 几种模型（ svm ， lr ， gbdt ， em ）的原理以及公式推导；
 6. rf ， gbdt 的区别； gbdt ， xgboost 的区别（烂大街的问题最好从底层原理去分析回答）；
-7. 决策树处理连续值的方法；
+7. 决策树处理连续值的方法； 
 8. 特征选择的方法；
 9. 过拟合的解决方法；
 10. kmeans 的原理，优缺点以及改进；
@@ -95,24 +101,25 @@ https://www.lagou.com/jobs/3865945.html
 25. mr 方案解决矩阵相乘的代码；
 26. 比较各个模型的Loss function
 27. 牛顿学习法
-28. SGD如何训练介绍LR、RF、GBDT ，分析它们的优缺点，是否写过它们的分布式代码
-29. 介绍SVD、SVD++
-30. 是否了解线性加权
-31. bagging、boosting、cascade等模型融合方式
-32. 推荐系统的冷启动问题如何解决
-33. 是否了解A/B Test以及A/B Test结果的置信度
-34. 特征工程经验
-35. 是否了解mutual infomation、chi-square、LR前后向、树模型等特征选择方式
-36. 关联分析
-37. SVM的原理，SVM里面的核
-38. K-means，如何用hadoop实现k-means
-39. naive bayes和logistic regression的区别
-40. LDA的原理和推导
-41. 做广告点击率预测，用哪些数据什么算法
-42. 推荐系统的算法中最近邻和矩阵分解各自适用场景
-43. 用户流失率预测怎么做（游戏公司的数据挖掘都喜欢问这个）
-44. 一个游戏的设计过程中该收集什么数据，如何从登陆日志中挖掘尽可能多的信息
-45. 机器学习大概问过lr，svm，pr曲线，朴素贝叶斯的assumption，ensemble方法，决策树节点用哪个特征进行划分，gbdt原理，random forest原理，pca和lda降维原理，写k means和gmm公式，特征选择的方法有哪些，cnn与rnn的区别，你所知道的距离度量方式，你所知道的loss function，蓄水池抽样。
+28. SGD如何训练
+29. 介绍LR、RF、GBDT ，分析它们的优缺点，是否写过它们的分布式代码
+30. 介绍SVD、SVD++
+31. 是否了解线性加权
+32. bagging、boosting、cascade等模型融合方式
+33. 推荐系统的冷启动问题如何解决
+34. 是否了解A/B Test以及A/B Test结果的置信度
+35. 特征工程经验
+36. 是否了解mutual infomation、chi-square、LR前后向、树模型等特征选择方式
+37. 关联分析
+38. SVM的原理，SVM里面的核
+39. K-means，如何用hadoop实现k-means
+40. naive bayes和logistic regression的区别
+41. LDA的原理和推导
+42. 做广告点击率预测，用哪些数据什么算法
+43. 推荐系统的算法中最近邻和矩阵分解各自适用场景
+44. 用户流失率预测怎么做（游戏公司的数据挖掘都喜欢问这个）
+45. 一个游戏的设计过程中该收集什么数据，如何从登陆日志中挖掘尽可能多的信息
+46. 机器学习大概问过lr，svm，pr曲线，朴素贝叶斯的assumption，ensemble方法，决策树节点用哪个特征进行划分，gbdt原理，random forest原理，pca和lda降维原理，写k means和gmm公式，特征选择的方法有哪些，cnn与rnn的区别，你所知道的距离度量方式，你所知道的loss function，蓄水池抽样。
 
 
 
