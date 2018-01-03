@@ -6,7 +6,7 @@
 
 ## TODO
 
-普通的决策树， RF，  Bayes，LDA，KNN，K-means，EM，
+普通的决策树， RF，  Bayes，LDA，KNN，EM，
 
 CNN，RNN，DNN，LSTM
 
@@ -16,7 +16,7 @@ CNN，RNN，DNN，LSTM
 
 ## DONE
 
-LR，SVM，XGBoost，Perception，SGD，GBDT，LinearReg，Ridge，Lasso，
+LR，SVM，XGBoost，Perception，SGD，GBDT，LinearReg，Ridge，Lasso，K-means，
 
 
 
