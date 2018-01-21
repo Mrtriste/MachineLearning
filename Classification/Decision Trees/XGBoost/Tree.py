@@ -40,9 +40,6 @@ class Node:
 	def is_leaf(self):
 		return self.left == -1
 
-	def is_old_leaf(self):
-		return self.right==-2
-
 
 class Tree:
 	def __init__(self):
