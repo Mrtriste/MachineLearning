@@ -58,10 +58,12 @@ class XGBoost:
 			for c in range(self.n_class):
 				# trees: n_class tree
 				p_sum = p[i,c]
-				for trees in self.Trees:
-					tree = trees[c]
-					p_sum += tree.get_score(X[i,:])
+				for ttt in range(len(self.Trees)):
+					tree = self.Trees[ttt][c]
+					p_sum += 1/(ttt+1.0)*tree.get_score(X[i,:])
+
 				p[i,c] = p_sum
+
 
 	def _get_gradient(self):
 		X = self.X; y = self.y
