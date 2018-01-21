@@ -108,16 +108,11 @@ class Updater:
 
 	def reset_expand(self):
 		# set not split leaf to be old leaf
-		for nid in self.expand:
-			if self.tree[nid].is_leaf():
-				self.tree[nid].set_right(-2)
-
-		# reset expand
 		lst = []
-		tree = self.tree
-		for i in range(tree.size()):
-			if tree[i].is_leaf() and (not tree[i].is_old_leaf()):
-				lst.append(i)
+		for nid in self.expand:
+			if not self.tree[nid].is_leaf():
+				lst.append(self.tree[nid].get_left())
+				lst.append(self.tree[nid].get_right())
 
 		self.expand = lst
 
