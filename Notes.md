@@ -235,6 +235,79 @@
 
   贝叶斯学派：我们不知道$$\theta$$ 的值，所以我们为$$\theta$$ 的值赋予一个先验概率，用先验概率表示$$\theta$$ 的不确定性，有了训练集后可以计算后验概率，与先验概率*likehood成正比，然后最大似然这个后验概率。
 
+  ​
+
+
+- [Nested CV](https://www.zhihu.com/question/55200250/answer/143797646)
+
+  先弄明白一个概念：[验证集和测试集的区别](https://www.cnblogs.com/xfzhang/archive/2013/05/24/3096412.html)
+
+  简单来说验证集是在交叉验证（CV）中的，测试集是在最后评估准确率的；验证集是在model selection中 (其实是决定hyperparameter的过程)的概念，是比较一个模型的不同参数，测试集是进行不同模型间的比较。
+
+  Andrew Ng建议将数据进行如下分割: (60% 20%) 20%
+
+  下面进入正题：
+
+  1. 首先将数据集分成70%的训练集（包括训练集和验证集）和30%的测试集
+
+  2. 对每个模型进行以下操作：
+
+     a. 每次设置一个超参数，用训练集进行k-fold交叉验证计算出平均的准确率acc_mean1
+
+     b. 根据acc_mean1得到最好的参数
+
+     （a, b是在做model selection (其实是决定hyper parameter的过程)）
+
+     c. 用最好的参数训练该模型，预测一开始30%的测试集，得到准确率acc_mean2
+
+  3. 根据acc_mean2挑选出最好的模型（参数也已经选好了）
+
+  PS： 外层再来一个循环，即多次分数据集-->训练集和测试集的过程
+
+  - method-1: Random/Shuffle
+
+    更全面可靠的还有10 runs of 10-fold cross validation，就是把最开始的数据集分成70%和30%的过程随机做10次。每次随机分出来的（70%，30%）都做一次10-fold cross validation，得到10个在测试集上的测试结果。分别算出测试结果的平均值和方差，然后再来比较哪个比较好。
+
+  - method-2: K-fold 
+
+    针对nested cv的概念，与10 runs of 10-fold cross validation平级的还有一种方法—— k-fold，比如分成75%的训练集和25%的测试集，就可以4-fold，那么外层也k-fold了，这就是nested cv的叫法的原因。
+
+    至于random和k-fold哪个效果更好, 我觉得没有太大区别。只是k-fold相比于random split保证了所有的数据都有被循环利用过做training和testing。
+
+    ​
+
+
+- [parameters & hyper parameters](https://www.youtube.com/watch?v=EJtTNboTsm8)
+
+  https://www.quora.com/What-are-hyperparameters-in-machine-learning
+
+  拿神经网络举个例子：
+
+  parameters: $$w，b$$
+
+  hyper parameters: 
+
+  1. learning rate $$\alpha$$
+  2. iterations 
+  3. hidden layers
+  4. hidden units
+  5. choice of activation function
+
+  超参数决定了参数最后会怎么样，所以有个超字
+
+  However, there is another kind of parameters that cannot be directly learned from the regular training process. These parameters express “higher-level” properties of the model such as its complexity or how fast it should learn. They are called **hyperparameters**. Hyperparameters are usually fixed before the actual training process begins.
+
+  ​
+
+- [Some advantages of decision trees](http://scikit-learn.org/stable/modules/tree.html#classification)
+
+  sklearn 上有一些模型的优缺点
+
+  ​
+
+- [ROC_AUC scores](http://www.dataschool.io/roc-curves-and-auc-explained/)
+
+  ​
 
 - ​
 
